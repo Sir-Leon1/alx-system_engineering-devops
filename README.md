@@ -1,1 +1,1 @@
- # Some of the linux scrits
+ # Some of the linux scripts
