@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Displays all active IPV4 IPs
+
+ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | awk '{print $2}'
