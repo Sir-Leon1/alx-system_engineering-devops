@@ -5,15 +5,15 @@ file_line { 'Declare identity file':
   ensure => present,
   line   => '   IdentityFile ~/.ssh/school',
   match  => '^IdentityFile',
-  path   => '~/.ssh/config',
+  path   => '/etc/ssh/ssh_config',
 }
 
 # Add configuration to refuse password authentication
-file_linr { 'Turn off passwd auth':
+file_line { 'Turn off passwd auth':
   ensure => present,
   line   => '   PasswordAuthentication no',
   match  => '^PasswordAuthentication',
-  path   => '~/.ssh/config',
+  path   => '/etc/ssh/ssh_config',
 }
 
 # Ensure Host ubuntu@98.98.98.98 present before adding lines
@@ -21,5 +21,6 @@ file_line { 'Ensure Host entry':
   ensure => present,
   line   => 'Host ubuntu@98.98.98.98',
   match  => '^Host',
-  path   => '~/.ssh/config',
+  path   => '/etc/ssh/ssh_config',
 }
+
