@@ -1,0 +1,21 @@
+# Transfer a file between client and a server
+
+# Function for usage instructions
+usage() {
+	echo "Usage: 0-transfer_file PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
+	exit 1
+}
+
+# Check if correct number of arguments is provided
+if [ "$#" -ne 4 ]; then
+	usage
+fi
+
+# Assign arguments to variables
+PATH_TO_FILE=$1
+IP=$2
+USERNAME=$3
+PATH_TO_SSH_KEY=$4
+
+# Perform the file copy operation using scp
+scp "$PATH_TO_FILE" "$USERNAME@$IP:~/"
