@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Transfer a file between client and a server
 
 # Function for usage instructions
