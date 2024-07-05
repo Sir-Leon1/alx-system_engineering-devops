@@ -32,8 +32,8 @@ file { '/etc/nginx/sites-available/default':
   content => @(END),
 server {
   listen  80 default_server;
-  listen  [::]: 80 deefault_server;
-  root    /etc / nginx / html;
+  listen  [::]:80 default_server;
+  root    /etc/nginx/html;
   index   index.html;
 
   location /redirect_me {
