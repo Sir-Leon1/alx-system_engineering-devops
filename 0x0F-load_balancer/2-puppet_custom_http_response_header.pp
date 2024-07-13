@@ -1,8 +1,14 @@
 #nginx setup
 
+# Ensure system is updated
+exec { 'update system':
+  command => '/usr/bin/apt-get update',
+}
+
 #Ensure Nginx package is installed and service is running
 package { 'nginx':
-  ensure => installed,
+  ensure  => installed,
+  require => Exec['update system']
 }
 
 service { 'nginx':
