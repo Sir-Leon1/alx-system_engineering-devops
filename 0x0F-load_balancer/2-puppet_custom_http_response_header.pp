@@ -52,4 +52,4 @@ server {
 }
 END
 notify    => Service['nginx'],
-
+}
