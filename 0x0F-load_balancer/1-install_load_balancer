@@ -4,8 +4,6 @@
 apt-get update
 apt-get install haproxy
 
-touch /etc/haproxy/haproxy.cfg
-
 echo "backend web-backend
     balance roundrobin
     server web-01 web-01.vilet.tech:80 check
