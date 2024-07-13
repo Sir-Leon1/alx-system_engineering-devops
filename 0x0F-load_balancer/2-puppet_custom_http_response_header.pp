@@ -47,7 +47,7 @@ server {
   }
   
   location / {
-    add_header X-Served-By $HOSTNAME;
+    add_header X-Served-By "$HOSTNAME";
   }
 }
 END
