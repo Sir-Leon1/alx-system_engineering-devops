@@ -6,8 +6,7 @@ apt-get install haproxy
 
 touch /etc/haproxy/haproxy.cfg
 
-printf %s
-"backend web-backend
+echo "backend web-backend
     balance roundrobin
     server web-01 web-01.vilet.tech:80 check
     server web-02 web-02.vilet.tech:80 check
@@ -16,6 +15,6 @@ frontend http
     bind *:80
     mode http
     default_backend web-backend
-" > /etc/haproxy/haproxy.cfg
+" >> /etc/haproxy/haproxy.cfg
 
 service haproxy restart
