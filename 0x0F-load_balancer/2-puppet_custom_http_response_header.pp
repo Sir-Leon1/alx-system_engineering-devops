@@ -1,30 +1,61 @@
-# Setup New Ubuntu server with nginx
-# and custom HTTP header
+#nginx setup
 
-exec { 'update sys':
+# Ensure system is updated
+exec { 'update system':
   command => '/usr/bin/apt-get update',
 }
 
+#Ensure Nginx package is installed and service is running
 package { 'nginx':
-  ensure  => 'installed',
-  require => Exec['update sys']
+  ensure  => installed,
+  require => Exec['update system']
 }
 
-file {'/var/www/html/index.html':
-  content => 'Hello World!'
-}
-
-exec {'redirect_me':
-  command  => 'sed -i "24i\	rewrite ^/redirect_me http://cuberule.com/ permanent;" /etc/nginx/sites-available/default',
-  provider => 'shell'
-}
-
-exec {'HTTP head':
-  command  => 'sed -i "25i\	add_header X-Served-By \$hostname;" /etc/nginx/sites-available/default',
-  provider => 'shell'
-}
-
-service {'nginx':
+service { 'nginx':
   ensure  => running,
-  require => Package['nginx']
+  enable  => true,
+  require => Package['nginx'],
+}
+
+# Define directory and file resources for HTML content
+file { '/etc/nginx/html':
+  ensure => directory,
+}
+
+file { '/etc/nginx/html/index.html':
+  ensure  => file,
+  content => 'Hello World!',
+}
+
+file { '/etc/nginx/html/404.html':
+  ensure  => file,
+  content => "Ceci n'est pas une page",
+}
+
+#Nginx server configuration
+file { '/etc/nginx/sites-available/default':
+  ensure  => file,
+  content => @(END),
+server {
+  listen  80 default_server;
+  listen  [::]:80 default_server;
+  root    /etc/nginx/html;
+  index   index.html;
+
+  location /redirect_me {
+    return 301 http://cuberule.com;
+  }
+
+  error_page 404 /404.html;
+  location /404 {
+    root /etc/nginx/html;
+    internal;
+  }
+  
+  location / {
+    add_header X-Served-By "$HOSTNAME";
+  }
+}
+END
+notify    => Service['nginx'],
 }
