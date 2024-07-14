@@ -21,5 +21,9 @@ frontend http
     default_backend web-backend
 " >> /etc/haproxy/haproxy.cfg
 
+update-rc.d haproxy defaults
+chmod +x /etc/init.d/haproxy
+
 service haproxy start
 service haproxy restart
+
