@@ -21,4 +21,4 @@ frontend http
     default_backend web-backend
 " >> /etc/haproxy/haproxy.cfg
 
-service haproxy start
+service haproxy restart
