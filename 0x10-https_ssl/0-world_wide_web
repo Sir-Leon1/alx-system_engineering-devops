@@ -1,19 +1,12 @@
 #!/usr/bin/env bash
 # Outputs the subdomain, its record type and its destination
-# Accepting the domain name, must and its subdomain as arguments
 # shellcheck disable=SC2086
 
-#Function to query DNS records and filter results with awk
 query_dns() {
-  local full_domain=$1
-
-  dig $full_domain +noall +answer | awk '
+  dig "$1.$2" +noall +answer | awk '
   {
-    # Determine the record type based on the fourth field
-    record_type = $4
-    destination = $5
     # Print the record type and destination
-    printf "The subdomain %s is a %s record and points to %s\n", "'$full_domain'", record_type, destination
+    printf "The subdomain %s is a " $4 " record and points to " $5 "\n", "'$1'"
   }'
 }
 
@@ -23,15 +16,10 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
-DOMAIN=$1
-SUBDOMAIN=$2
-
-if [ -z "$SUBDOMAIN" ]; then
+if [ -z "$2" ]; then
   for sub in www lb-01 web-01 web-02; do
-    full_domain="$sub.$DOMAIN"
-    query_dns "$full_domain"
+    query_dns "$sub" "$1"
   done
 else
-  full_domain="$SUBDOMAIN.$DOMAIN"
-  query_dns "$full_domain"
+  query_dns "$2" "$1"
 fi
