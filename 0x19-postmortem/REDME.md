@@ -1,3 +1,6 @@
+
+<img src = "https://img.freepik.com/free-vector/gradient-ssl-illustration_23-2149247155.jpg?semt=ais_hybrid" alt="SecureSideOutage" height="400"/>
+
 # Postmortem: Outage in SecureSide (Neighborhood Watch Web App)
 
 ## Issue Summary
