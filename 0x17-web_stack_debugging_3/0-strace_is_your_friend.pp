@@ -1,6 +1,6 @@
-# Fixes bad phpp extension to php
+# Fixes bad `phpp` extensions to `php` in the WordPress file `wp-settings.php`.
 
-exec {
+exec { 'fix-wordpress':
   command => 'sed -i s/phpp/php/g /var/www/html/wp-settings.php',
-  path => '/usr/local/bin/:/bin/'
+  path    => '/usr/local/bin/:/bin/'
 }
